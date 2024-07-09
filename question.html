@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Table Display</title>
+    <style>
+        table {
+            width: 50%;
+            border-collapse: collapse;
+        }
+        td {
+            width: 50%;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        img {
+            width: 100px;
+            height: 100px;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Images</h1>
+    <form id="imageForm">
+        <input type="text" id="numImages" value="4">
+        <button type="button" onclick="displayTable()">Display Images</button>
+    </form>
+    <div id="errorMessage" class="error"></div>
+    <div id="imageTable"></div>
+
+    <script>
+        function createImageTag(index) {
+            return `<img src="college${index}.jpg">`;
+        }
+
+        function displayTable() {
+            const numImages = document.getElementById('numImages').value;
+            const errorMessage = document.getElementById('errorMessage');
+            const imageTable = document.getElementById('imageTable');
+
+            errorMessage.innerHTML = '';
+            imageTable.innerHTML = '';
+
+            const num = parseInt(numImages);
+
+            if (isNaN(num) || num % 2 !== 0) {
+                errorMessage.innerHTML = 'Invalid value';
+                return;
+            }
+
+            let tableHTML = '<table>';
+
+            for (let i = 1; i <= num; i += 2) {
+                tableHTML += '<tr>';
+                tableHTML += `<td>${createImageTag(i)}</td>`;
+                tableHTML += `<td>${createImageTag(i + 1)}</td>`;
+                <!-- tableHTML += '</tr>'; -->
+            }
+
+            tableHTML += '</table>';
+            imageTable.innerHTML = tableHTML;
+        }
+    </script>
+</body>
+</html>
